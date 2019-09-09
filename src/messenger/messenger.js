@@ -1,7 +1,7 @@
 import React from 'react'
 import List from './msgList'
 import Chat from './chatScreen'
-import './../../css/chat.css'
+import './chat.css'
 
 class Messenger extends React.Component{
     render(){

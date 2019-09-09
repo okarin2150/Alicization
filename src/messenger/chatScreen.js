@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './header'
 import Box from './chatBox'
 import Footer from './footer'
-import './../../css/chat.css'
+import './chat.css'
 
 class Chat extends React.Component {
     render() {

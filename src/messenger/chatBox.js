@@ -1,5 +1,5 @@
 import React from 'react'
-import './../../css/chat.css'
+import './chat.css'
 import { connect } from 'react-redux'
 
 
@@ -10,19 +10,20 @@ class Box extends React.Component{
         return(
             <div className="box">
                 
-        {
-                this.props.messageList.map((message, index) => {
-                    if (message.sender === 1) {
-                    return (
-                        <div key={index} className='sender'><span>{message.text}</span></div>
-                    )
-                    } else {
-                    return (
-                        <div key={index} className='receiver'><span>{message.text}</span></div>
-                    )
-                    }
-                })
-        }
+              {
+
+                    this.props.messageList.map((message, index) => {
+                        if (message.sender.id === 256) {
+                        return (
+                            <div key={index} className='sender'><span>{message.text}</span></div>
+                        )
+                        } else {
+                        return (
+                            <div key={index} className='receiver'><span>{message.text}</span></div>
+                        )
+                        }
+                    })
+             }
 
             </div>
         )

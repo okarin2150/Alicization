@@ -1,26 +1,47 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import Fab from '@material-ui/core/Fab'
-import { sendNewMessage } from './../../action/convAction'
+import { sendNewMessage } from '../action/action'
 import { connect } from 'react-redux'
-import './../../css/chat.css'
+import './chat.css'
+import axios from 'axios'
 
 class Footer extends React.Component {
     constructor (props) {
         super(props)
     
         this.state = {
-          newMessage: ''
+          newMessage: '',
+          token:window.localStorage.getItem('token')
         }
       }
       handleSend () {
-        this.props.dispatch(sendNewMessage(this.state.newMessage))
+        
+        //this.props.dispatch(sendNewMessage(this.state.newMessage))
+        let fdata = new FormData()
+        fdata.append('token', this.state.token)
+        fdata.append('conversation_id', this.props.conversation_id)
+        fdata.append('text', this.state.newMessage)
+        
+
+        axios.post('https://api.paywith.click/conversation/create/',fdata)  
+          .then((response)=> {
+          console.log('MSGSCREEN',response.data.data)
+          //this.props.dispatch(sendNewMessage(response.data.data.messages))
+            
+          
+          })
+          .catch(function (error) {
+          console.log(error)
+          })
+
         this.setState({ newMessage: '' })
       }
 
 
     render() {
-      var imgUrl = require('./../imgs/paper-plane.png');
+      console.log('convid',this.props.conversation_id)
+      var imgUrl = require('../imgs/paper-plane.png');
         return(
             <div className="footer">
                 
@@ -46,5 +67,10 @@ class Footer extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     dispatch: dispatch
   })
+const mapStateToProps = (state)=>({
+  conversation_id:state.curentConvId
+
+
+})  
   
-export default connect(mapDispatchToProps)(Footer)
+export default connect(mapStateToProps,mapDispatchToProps)(Footer)
