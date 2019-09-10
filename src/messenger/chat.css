@@ -1,29 +1,29 @@
 body {
-    padding: 5%;
+    padding: 7%;
     
 }
 .chat {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: url('../imgs/img9.jpg');
+    /* background: url('./../component/imgs/sky.jpg'); */
+    background-image: linear-gradient(to bottom right, #EEE, #82aba3);
     background-size:cover;
-    height: 80vh;
     flex-grow:4;
-    
+    height: auto;
     }
 
+
 .MuiAppBar-colorPrimary {
-    background-image: linear-gradient(to right, #212121 , #438e41);
+    background-image: linear-gradient(to right, #03236c , #fc345f);
     flex-grow: 1;
 }
 
 .messenger {
     display: flex;
-    background-image: linear-gradient(to bottom right, #E0E0E0, #EEEEEE);
+    background-image: linear-gradient(to bottom right, rgb(40, 17, 248), rgb(17, 204, 42));
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
-
+   
 }
 .footer{
     display: flex;
@@ -33,14 +33,15 @@ body {
 
 .sender {
     align-self: flex-end;
-    background-image: linear-gradient(to right, #FDD835 , #FFF176);  
+    background-image: linear-gradient(to right, #03236c , #3e909c);  
     padding: 12px 40px;
     border-radius: 20px 20px 0 20px;
     margin: 20px;
+    color: #fff;
   }
 .receiver {
     align-self: flex-start;
-    background-image: linear-gradient(to right, #FF8A65 , #F4511E);  
+    background-image: linear-gradient(to bottom right, #EEEEEE, #fff);
     border-radius: 20px 20px 20px 0px;
     padding: 12px 40px;
     margin: 20px;
@@ -49,7 +50,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 20;
-    overflow: scroll;
+    height: 50vh;
+    overflow: auto;
 }
 .list{
     display: flex;
@@ -57,12 +59,13 @@ body {
     flex-direction: column;
     justify-content: space-between;
     justify-content: flex-start;
+    
 
 }
 .conversation {
     height: 90px;
     background-color: #FAFAFA;
-    border-bottom: solid 1px #E0E0E0;
+    border-bottom: solid 1px rgb(240, 16, 16);
     display: flex;
     flex-direction: row;
     box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
@@ -79,7 +82,6 @@ body {
     flex-direction: row;
     padding: 12px;
     justify-content: space-between;
-    color: #1B5E20;
 }
 .unseen{
     background-color: #e57373;
@@ -95,7 +97,7 @@ body {
     
 }
 .conversation:hover{
-    background-image: linear-gradient(to right, #b2beb7 , #15e777);
+    background-image: linear-gradient(to right, #b2beb7 , #f793a8);
 }
 .profileImg {
     margin-left:20px;
@@ -103,12 +105,11 @@ body {
       width: 45px;
       height: 45px;
       background: #E6E7ED;
-      -webkit-border-radius: 50px;
+      border-radius: 50px;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
       margin-top: 15px;
-      border-radius: 40px;
 }
 .search {
     padding: 12px;
@@ -129,12 +130,31 @@ body {
 }
 .MuiFab-secondary{
     margin: 8px !important;
-    background-color: #2E7D32 !important;
+    background-color: #fc345f !important;
 }
 .MuiFab-primary {
-    background-color: #2E7D32 !important;
+    background-color: #fc345f !important;
     margin: 10px !important ;
 }
 .sendImg{
     width: 24px;
+}
+.editPen {
+    width: 20px;
+    margin-left: 20px;
+}
+.profile {
+    background: #fff;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contacts {
+    padding: 10px;
+    border: 1px solid #fc345f;
+    border-radius: 10px;
+}
+.contacts:hover {
+    background-image: linear-gradient(to right, #eee , #f793a8);
 }

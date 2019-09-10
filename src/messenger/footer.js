@@ -41,7 +41,7 @@ class Footer extends React.Component {
 
     render() {
       console.log('convid',this.props.conversation_id)
-      var imgUrl = require('../imgs/paper-plane.png');
+      var imgUrl = require('../imgs/Sendicon.png');
         return(
             <div className="footer">
                 

@@ -1,8 +1,8 @@
 import React from 'react'
 import './chat.css'
 import Conversation from './../messenger/conversation'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 import { createNewConversation, setConvoList } from '../action/action'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -13,7 +13,8 @@ class List extends React.Component {
       this.state = {
         newConv: '',
         suggestionUsers: [],
-        token: window.localStorage.getItem('token')
+        token: window.localStorage.getItem('token'),
+        id:window.localStorage.getItem('user_id')
       }
     }
 
@@ -64,10 +65,6 @@ class List extends React.Component {
       console.log(error);
       })
 
-
-
-
-
     }
 
     render(){
@@ -94,20 +91,38 @@ class List extends React.Component {
               { this.props.conversationList.map((item, index) => {
 
                 console.log('iiitem', item)
-                return (
-                  <Conversation 
-                      key={index}
-                      id={item.id}
-                      name={item.users[0].email}
-                      lastName={item.lastName}
-                      latestMessage={item.latest_message}
-                      unseenMessage={item.unseenMessage} 
-                      date={item.latest_message_date}
-                  />
-                    
+                return(
 
-                      
+                  item.users.map((user)=>{
+                    if (user.id!=this.state.id){
+                      return (
+                        <Conversation 
+                            key={index}
+                            id={item.id}
+                            name={user.email}
+                            lastName={user.lastName}
+                            latestMessage={item.latest_message}
+                            unseenMessage={item.unseenMessage} 
+                            date={item.latest_message_date}
+                        />
+                      )  
+                    
+  
+  
+  
+                    }
+                    else{
+                      return null
+                    }    
+                    
+                        
+    
+                          
+                    
+  
+                  })
                 )
+                
               })
               
               }

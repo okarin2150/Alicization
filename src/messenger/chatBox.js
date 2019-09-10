@@ -4,6 +4,12 @@ import { connect } from 'react-redux'
 
 
 class Box extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            id:window.localStorage.getItem('user_id')
+        }
+    }
     
     render() {
         console.log('prpssss:', this.props.messageList)
@@ -13,7 +19,7 @@ class Box extends React.Component{
               {
 
                     this.props.messageList.map((message, index) => {
-                        if (message.sender.id === 256) {
+                        if (message.sender.id == this.state.id) {
                         return (
                             <div key={index} className='sender'><span>{message.text}</span></div>
                         )

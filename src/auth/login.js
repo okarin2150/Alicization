@@ -12,6 +12,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
 import axios from 'axios'
 import Button from '@material-ui/core/Button'
+import { withRouter } from 'react-router'
+import validate from './../validation/validateFunction'
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -26,35 +28,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
-  constructor(){
-    super()
-    this.state={
-      showPassword: false,
-      password: '',
-      username:''
+  constructor(props){
+    super(props)
+    this.state = {
+      fields: {
+        email: '',
+        password: ''
+      },
+      errors: {
+        email: '',
+        password: ''
+      }
     }
+  }
     //const classes = useStyles();
 
 
 
-  }
+  
   handleChange(e){
     let name=e.target.id
-    //let change=this.state
-    //change[name]=event.target.value
-    this.setState({ [name]: e.target.value })
-    console.log(e.target)
+    this.setState({...this.state, fields: {...this.state.fields, [name]: e.target.value }})
 
-    
   }
   handleClickShowPassword(){
     this.setState({showPassword:!this.state.showPassword})
   }
   handleMouseDownPassword(e){
-    let a=e.target.value
-    console.log('hey we here!',a)
+    
+    console.log('hey we here!')
     e.preventDefault()
   }
   handleMouseUpPassword(){
@@ -62,15 +66,38 @@ export default class Login extends React.Component {
     console.log('now we here ')
 
   }
+  handleError () {
+    let valid = true
+    const errors = {
+      email: validate('email', this.state.fields.email),
+      password: validate('password', this.state.fields.password)
+    }
+    console.log('errorrr', errors)
+    this.setState({ errors },
+      () => {
+        Object.values(this.state.errors).map((item) => {
+          if (item !== null) {
+            valid = false
+          }
+        })
+        if (valid) {
+          this.handleRequest()
+        }
+      }
+    )
+  }
   handleRequest(){
     axios.post('https://api.paywith.click/auth/signin/', {
-      email: this.state.username,
-      password: this.state.password
+      email: this.state.fields.email,
+      password: this.state.fields.password
     })
-    .then(function (response) {
-      console.log('DATA',response.data);
+    .then((response) => {
+      console.log('sign in response :',response.data);
       window.localStorage.setItem('token',response.data.data.token)
+      window.localStorage.setItem('user_id', response.data.data.profile.id)
+      this.props.history.push('/messenger/')
     })
+
     .catch(function (error) {
       console.log(error);
     });
@@ -88,30 +115,33 @@ export default class Login extends React.Component {
         
         
       
-      <div className='container'>
-        
-      
+      <form>
+        <div className='form'>
+          <Typography variant='h5' gutterBottom>
+            LOGIN HERE
+          </Typography>
 
 
-        <div className='loginPage'>
+
           <TextField
-            variant='outlined'
+            //variant='outlined'
             type='text'
-            label='UserName'
-            helperText='hey you might wanna type something here'
+            label='Email'
+            placeholder='your email here'
+            //helperText='hey you might wanna type something here'
             onChange={(e)=>this.handleChange(e)}
-            id='username' 
+            id='email' 
           />
+          {this.state.errors.email !== null && <span className='error'>{this.state.errors.email}</span>}
         
           <TextField
-                id="password"
-                
-                variant="filled"
+                id="password"         
+                //variant="filled"
                 type={this.state.showPassword ? 'text' : 'password'}
                 label="Password"
                 value={this.state.password}
-                helperText='salam khobi'
-                placeholder='placeholder!'
+                //helperText='salam khobi'
+                placeholder='and your password here please'
                 //error={true}
                 onChange={(e)=>this.handleChange(e)}
                 InputProps={{
@@ -130,13 +160,17 @@ export default class Login extends React.Component {
                   ),
                 }}
           />
-          <Button variant="contained" color="secondary" onClick={()=>this.handleRequest()}>sign in</Button>
+          {this.state.errors.password !== null && <span className='error'>{this.state.errors.password}</span>}
+
+
+          <Button variant="contained" color="secondary" onClick={()=>this.handleError()}>sign in</Button>
 
                       
         </div>
-      </div>
+      </form>
       
     )
   }
     
 }
+export default withRouter(Login)

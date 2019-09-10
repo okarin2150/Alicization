@@ -1,5 +1,5 @@
 body {
-background: url('./imgs/img1.jpg');
+background: url('./imgs/background.jpg');
 background-size: cover;
 }
 .form {
@@ -17,13 +17,13 @@ background-size: cover;
 }
 /* for button style */
 .MuiButton-containedSecondary {
-  background-image: linear-gradient(to right, #212121 , #4CAF50);
+  background-image: linear-gradient(to right, #03236c , #fc345f);
 }
-
-
-
 @media screen and (max-width: 800px) {
   .form {
     width: 60vw;
   }
+}
+.error {
+  color: #fc345f; 
 }
